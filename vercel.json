@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "functions": {
+    "api/customer.java": {
+      "runtime": "java"
+    }
+  },
+  "routes": [
+    {
+      "src": "/customer",
+      "dest": "/api/customer.java"
+    }
+  ]
+}
