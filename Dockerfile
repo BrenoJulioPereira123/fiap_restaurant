@@ -1,15 +1,14 @@
-RUN apt-get update
-RUN apt-get install openjdk-17-jdk -y
-COPY . .
+# Use uma imagem base do JDK
+FROM openjdk:17-jdk-alpine
 
-RUN apt-get install maven -y
-RUN mvn clean install
+# Defina o diretório de trabalho dentro do contêiner
+WORKDIR /app
 
-FROM openjdk:17-jdk-slim
+# Copie o arquivo JAR da sua aplicação para o diretório de trabalho do contêiner
+COPY --from=build /target/restaurant-0.0.1-SNAPSHOT.jar app.jar
 
+# Exponha a porta em que sua aplicação está configurada para ouvir (geralmente 8080)
 EXPOSE 8080
-
-COPY --from=build /target/deploy_render-1.0.0.jar app.jar
 
 # Comando para executar a aplicação
 ENTRYPOINT  ["java", "-jar", "/app/app.jar"]
