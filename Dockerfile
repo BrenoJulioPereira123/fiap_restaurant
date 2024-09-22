@@ -1,14 +1,22 @@
-# Use uma imagem base do JDK
-FROM openjdk:17-jdk-alpine
+# Etapa de build
+FROM maven:3.8.6-openjdk-17 AS build
 
-# Defina o diretório de trabalho dentro do contêiner
+# Defina o diretório de trabalho e copie os arquivos da aplicação
+WORKDIR /app
+COPY . /app
+
+# Executa o Maven para construir o JAR
+RUN mvn clean package -DskipTests
+
+# Etapa final
+FROM openjdk:17-jdk-alpine
 WORKDIR /app
 
-# Copie o arquivo JAR da sua aplicação para o diretório de trabalho do contêiner
-COPY target/*.jar /app/app.jar
+# Copia o JAR do estágio de build para o estágio final
+COPY --from=build /app/target/restaurant-0.0.1-SNAPSHOT.jar /app/app.jar
 
-# Exponha a porta em que sua aplicação está configurada para ouvir (geralmente 8080)
+# Exponha a porta que a aplicação usará
 EXPOSE 8080
 
-# Comando para executar a aplicação
+# Comando para rodar a aplicação
 CMD ["java", "-jar", "/app/app.jar"]
