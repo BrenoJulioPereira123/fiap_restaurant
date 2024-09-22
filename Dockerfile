@@ -1,5 +1,5 @@
 # Etapa de build
-FROM maven:3.8.6-openjdk-17 AS build
+FROM maven:3.8.7-openjdk-17 AS build
 
 # Defina o diretório de trabalho e copie os arquivos da aplicação
 WORKDIR /app
