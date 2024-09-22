@@ -5,10 +5,10 @@ FROM openjdk:17-jdk-alpine
 WORKDIR /app
 
 # Copie o arquivo JAR da sua aplicação para o diretório de trabalho do contêiner
-COPY target/*.jar /app/app.jar
+COPY target/myapp.jar /app/app.jar
 
 # Exponha a porta em que sua aplicação está configurada para ouvir (geralmente 8080)
 EXPOSE 8080
 
 # Comando para executar a aplicação
-ENTRYPOINT [ "java", "-jar", "app.jar" ]
+CMD ["java", "-jar", "/app/app.jar"]
