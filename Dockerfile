@@ -5,7 +5,7 @@ FROM openjdk:17-jdk-alpine
 WORKDIR /app
 
 # Copie o arquivo JAR da sua aplicação para o diretório de trabalho do contêiner
-COPY target/myapp.jar /app/app.jar
+COPY target/restaurant-0.0.1-SNAPSHOT.jar /app/app.jar
 
 # Exponha a porta em que sua aplicação está configurada para ouvir (geralmente 8080)
 EXPOSE 8080
